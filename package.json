@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Deobaba/Scissors-URL/issues"
   },
-  "homepage": "https://github.com/Deobaba/Scissors-URL#readme"
+  "homepage": "https://github.com/Deobaba/Scissors-URL#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "joi": "^17.9.2",
+    "mongoose": "^7.1.1"
+  }
 }
