@@ -1,10 +1,11 @@
 const express = require('express')
 const {register}= require('../controllers/User')
-const validateUser = require('../middleware/validators')
+
 const router = express.Router()
+const {validateUser} = require('../middleware/validators')
 
 router.route('/register')
-    .post(validateUser,register)
+    .post(register)
 
 
 

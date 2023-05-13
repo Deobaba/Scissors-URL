@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv  = require('dotenv')
+const errorHandler = require('./backend/middleware/error')
 const connectDB = require('./config/db')
 const user = require('./backend/routes/user')
 dotenv.config({path:'./config/config.env'})
@@ -17,6 +18,8 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/',user)
+
+app.use(errorHandler);
 
 // port
 PORT = process.env.PORT
