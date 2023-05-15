@@ -37,7 +37,6 @@ exports.login = asyncHandler(async(req,res,next)=>{
   
     // Check if password matches
     const isMatch = await user.comparePassword(password);
-    // const isMatch = await user.matchPassword (password);
   
     if (!isMatch) {
       return next(new ErrorResponse('Invalid credentials', 401));
@@ -48,6 +47,41 @@ exports.login = asyncHandler(async(req,res,next)=>{
         data:user
 
     })
+
+})
+
+// @desc      Logged in user
+// @route     GET /getMe
+// @access    Private
+
+exports.getMe = asyncHandler(async (req,res,next)=>{
+  const user = await User.findById(req.params.id)
+
+  res.status(200).json({
+    sucess:true,
+    data:user
+  })
+
+})
+
+// @desc      Logged in user
+// @route     GET /getMe
+// @access    Private
+
+exports.updateDetails = asyncHandler(async(req,res,next)=>{
+  const fieldstoUpdate = {
+   name: req.body.name,
+   email: req.body.email
+  }
+const user = await User.findByIdAndUpdate(req.params.id,fieldstoUpdate,{
+  runValidators:true,
+  new:true
+})
+
+res.status(200).json({
+  success: true,
+  data: user
+});
 
 })
 
