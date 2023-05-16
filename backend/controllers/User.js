@@ -85,12 +85,23 @@ res.status(200).json({
 
 })
 
+// @desc      update password
+// @route     GET /getMe
+// @access    Private
+
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
   const user = await User.findById(req.params.id).select('+password')
 
   if(!(user.comparePassword(req.body.currentPassword))){
     return next(new ErrorResponse('Password is incorrect', 401))
   }
+
+  user.password = req.body.newPassword
+
+  res.status(200).json({
+    sucess:true,
+    data:user
+  })
 })
 
 
