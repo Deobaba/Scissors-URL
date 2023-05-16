@@ -41,3 +41,4 @@ const req = {body:{
 }}
  const {name} =req.body
 console.log(name)
+// console.log(req.protocol)
