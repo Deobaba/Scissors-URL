@@ -64,7 +64,7 @@ exports.getMe = asyncHandler(async (req,res,next)=>{
 
 })
 
-// @desc      Logged in user
+// @desc      update details
 // @route     GET /getMe
 // @access    Private
 
@@ -83,6 +83,14 @@ res.status(200).json({
   data: user
 });
 
+})
+
+exports.updatePassword = asyncHandler(async (req,res,next)=>{
+  const user = await User.findById(req.params.id).select('+password')
+
+  if(!(user.comparePassword(req.body.currentPassword))){
+    return next(new ErrorResponse('Password is incorrect', 401))
+  }
 })
 
 
