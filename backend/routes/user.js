@@ -15,7 +15,7 @@ router.route('/:id')
 
 router.route('/forgot')
     .post(forgotPassword)
-router.route('/reset/:id')
+router.route('/reset/:resettoken')
     .post(resetPassword)
 router.route('/updatepassword/:id')
     .put(updatePassword)
