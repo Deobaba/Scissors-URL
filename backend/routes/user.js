@@ -16,7 +16,7 @@ router.route('/:id')
 router.route('/forgot')
     .post(forgotPassword)
 router.route('/reset/:resettoken')
-    .post(resetPassword)
+    .put(resetPassword)
 router.route('/updatepassword/:id')
     .put(updatePassword)
 module.exports = router;

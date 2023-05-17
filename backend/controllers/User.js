@@ -1,7 +1,8 @@
 const User = require('../models/User')
 const asyncHandler = require('../middleware/async')
 const {sendEmail} = require('../utils/sendEmail')
-
+const crypto = require('crypto');
+const ErrorResponse = require('../utils/errorResponse');
 // @desc      Register user
 // @route     POST /register
 // @access    Public
@@ -139,6 +140,8 @@ exports.forgotPassword = asyncHandler(async(req,res,next)=>{
       email:user.email,
       message:resetMessage
     })
+
+    res.status(200).json({ success: true, data: 'Email sent' });
   }catch(err){
     console.log(err);
     user.resetPasswordToken = undefined;
@@ -148,6 +151,11 @@ exports.forgotPassword = asyncHandler(async(req,res,next)=>{
 
     return next(new ErrorResponse('Email could not be sent', 500));
   }
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
 
 })
 
@@ -177,5 +185,9 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
   await user.save();
 
+  res.status(200).json({
+    success: true,
+    data: user
+  });
   
 });
