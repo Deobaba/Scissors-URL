@@ -66,7 +66,7 @@ exports.getMe = asyncHandler(async (req,res,next)=>{
 })
 
 // @desc      update details
-// @route     GET /getMe
+// @route     PUT /:ID
 // @access    Private
 
 exports.updateDetails = asyncHandler(async(req,res,next)=>{
@@ -87,7 +87,7 @@ res.status(200).json({
 })
 
 // @desc      update password
-// @route     GET /getMe
+// @route     PUT
 // @access    Private
 
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
@@ -150,6 +150,35 @@ exports.forgotPassword = asyncHandler(async(req,res,next)=>{
   }
 
 })
+
+
+// @desc      Reset password
+// @route     PUT /resetpassword/:resettoken
+// @access    Public
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+  // Get hashed token
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.resettoken)
+    .digest('hex');
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    return next(new ErrorResponse('Invalid token', 400));
+  }
+
+  // Set new password
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+  await user.save();
+
+  
+});
 
 
 
