@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv  = require('dotenv')
+const cookieParser = require('cookie-parser')
 const errorHandler = require('./backend/middleware/error')
 const connectDB = require('./config/db')
 const user = require('./backend/routes/user')
@@ -13,9 +14,9 @@ connectDB()
 // body parser
 app.use(express.json())
 
-app.get('/',(req,res)=>{
-    res.send('here')
-})
+// cookie parser
+app.use(cookieParser())
+
 
 app.use('/',user)
 

@@ -3,10 +3,11 @@ const asyncHandler = require('../middleware/async')
 const {sendEmail} = require('../utils/sendEmail')
 const crypto = require('crypto');
 const ErrorResponse = require('../utils/errorResponse');
+
+
 // @desc      Register user
 // @route     POST /register
 // @access    Public
-
 exports.register = asyncHandler(async(req,res,next)=>{
     const { name, email, password } = req.body;
     const user = await User.create({
@@ -15,18 +16,17 @@ exports.register = asyncHandler(async(req,res,next)=>{
         password
       });
 
-    res.status(200).json({
-        success : true,
-        data:user
-    })
+      tokenResponse(user,200,res)
 
 })
 
 // @desc      Login users
-// @route     POST /register
+// @route     POST /login
 // @access    Public
 exports.login = asyncHandler(async(req,res,next)=>{
+    console.log('it got here')
     const {email,password} = req.body
+
     if(!email || !password){
         return next(new ErrorResponse('Please provide an email and password', 400));
     }
@@ -44,20 +44,33 @@ exports.login = asyncHandler(async(req,res,next)=>{
       return next(new ErrorResponse('Invalid credentials', 401));
     }
 
-    res.status(200).json({
-        sucess:true,
-        data:user
-
-    })
-
+    tokenResponse(user,200,res)
 })
+
+
+
+// @desc      Log user out / clear cookie
+// @route     GET /logout
+// @access    Private
+exports.logout = asyncHandler(async (req, res, next) => {
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true
+    });
+  
+    res.status(200).json({
+      success: true,
+      data: {}
+    });
+  });
+  
 
 // @desc      Logged in user
 // @route     GET /getMe
 // @access    Private
 
 exports.getMe = asyncHandler(async (req,res,next)=>{
-  const user = await User.findById(req.params.id)
+  const user = await User.findById(req.user.id)
 
   res.status(200).json({
     sucess:true,
@@ -75,7 +88,7 @@ exports.updateDetails = asyncHandler(async(req,res,next)=>{
    name: req.body.name,
    email: req.body.email
   }
-const user = await User.findByIdAndUpdate(req.params.id,fieldstoUpdate,{
+const user = await User.findByIdAndUpdate(req.user.id,fieldstoUpdate,{
   runValidators:true,
   new:true
 })
@@ -88,11 +101,11 @@ res.status(200).json({
 })
 
 // @desc      update password
-// @route     PUT
+// @route     PUT/updatePassword/:id
 // @access    Private
 
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
-  const user = await User.findById(req.params.id).select('+password')
+  const user = await User.findById(req.user.id).select('+password')
 
   if(!(user.comparePassword(req.body.currentPassword))){
     return next(new ErrorResponse('Password is incorrect', 401))
@@ -102,10 +115,7 @@ exports.updatePassword = asyncHandler(async (req,res,next)=>{
 
   await user.save()
 
-  res.status(200).json({
-    sucess:true,
-    data:user
-  })
+  tokenResponse(user,200,res)
 })
 
 
@@ -142,6 +152,7 @@ exports.forgotPassword = asyncHandler(async(req,res,next)=>{
     })
 
     res.status(200).json({ success: true, data: 'Email sent' });
+
   }catch(err){
     console.log(err);
     user.resetPasswordToken = undefined;
@@ -185,9 +196,29 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
   await user.save();
 
-  res.status(200).json({
-    success: true,
-    data: user
-  });
+  tokenResponse(user,200,res)
   
 });
+
+
+
+const tokenResponse = (user,statuscode,res) =>{
+
+    const token = user.getJwtToken()
+
+    
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+
+  res
+    .status(statuscode)
+    .cookie('token', token, options)
+    .json({
+      success: true,
+      token
+    });
+}

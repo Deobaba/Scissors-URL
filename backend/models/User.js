@@ -62,7 +62,11 @@ UserSchema.methods.getResetPasswordToken = async function () {
   console.log(resetToken)
   return resetToken;
 }
-
-
+// generate token and return
+UserSchema.methods.getJwtToken = async function(){
+  return jwt.sign({ id: this.id }, process.env.JWT_SECRET,  {
+    expiresIn: process.env.JWT_EXPIRE
+  });
+}
 
 module.exports = mongoose.model('User', UserSchema);
