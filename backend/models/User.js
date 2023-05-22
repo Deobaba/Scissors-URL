@@ -63,7 +63,7 @@ UserSchema.methods.getResetPasswordToken = async function () {
   return resetToken;
 }
 // generate token and return
-UserSchema.methods.getJwtToken = async function(){
+UserSchema.methods.getJwtToken =  function(){
   return jwt.sign({ id: this.id }, process.env.JWT_SECRET,  {
     expiresIn: process.env.JWT_EXPIRE
   });
