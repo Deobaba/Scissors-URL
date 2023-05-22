@@ -204,7 +204,11 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
 const tokenResponse = (user,statuscode,res) =>{
 
-    const token = user.getJwtToken()
+    let token = user.getJwtToken()
+    // console.log(token)
+
+
+    console.log(token,typeof(token))
 
     
   const options = {

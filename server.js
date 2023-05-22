@@ -3,8 +3,10 @@ const dotenv  = require('dotenv')
 const cookieParser = require('cookie-parser')
 const errorHandler = require('./backend/middleware/error')
 const connectDB = require('./config/db')
-const user = require('./backend/routes/user')
 dotenv.config({path:'./config/config.env'})
+
+
+const user = require('./backend/routes/user')
 
 const app = express()
 
@@ -29,3 +31,11 @@ PORT = process.env.PORT
 app.listen(PORT, ()=>{
     console.log(`server connected to PORT - ${PORT}`)
 })
+
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+    console.log(`Error: ${err.message}`);
+    // Close server & exit process
+    // server.close(() => process.exit(1));
+  });
