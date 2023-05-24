@@ -7,6 +7,7 @@ dotenv.config({path:'./config/config.env'})
 
 
 const user = require('./backend/routes/user')
+const link = require('./backend/routes/link')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(cookieParser())
 
 
 app.use('/',user)
+app.use('/link',link)
 
 app.use(errorHandler);
 

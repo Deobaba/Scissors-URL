@@ -36,9 +36,23 @@
 // console.log(module.exports)
 
 
-const req = {body:{
-    name:'deobaba'
-}}
- const {name} =req.body
-console.log(name)
-// console.log(req.protocol)
+// const req = {body:{
+//     name:'deobaba'
+// }}
+//  const {name} =req.body
+// console.log(name)
+// // console.log(req.protocol)
+
+// const nanoId = require('nano-id')
+
+// // console.log(nanoId(13))
+// // console.log(nanoId.verify('it4wVGtjvm'))
+
+// console.log(nanoId.verify('O0XPrbPTXG13o'))
+// console.log(nanoId.verify('is'))
+
+
+// let x 
+// if(!x){
+//     console.log('na here')
+// }else(console.log('ok'))

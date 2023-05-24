@@ -106,12 +106,20 @@ res.status(200).json({
 
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
   const user = await User.findById(req.user.id).select('+password')
+  console.log(user)
+  // console.log('it got here')
 
-  if(!(user.comparePassword(req.body.currentPassword))){
+  if(!(user.comparePassword(req.body.currentpassword))){
     return next(new ErrorResponse('Password is incorrect', 401))
+
+    
   }
 
-  user.password = req.body.newPassword
+  console.log(req.body)
+  if(!(req.body.newpassword)){
+    return next(new ErrorResponse(' Enter your new Password', 401))
+  }
+  user.password = req.body.newpassword
 
   await user.save()
 
@@ -174,7 +182,9 @@ exports.forgotPassword = asyncHandler(async(req,res,next)=>{
 // @desc      Reset password
 // @route     PUT /resetpassword/:resettoken
 // @access    Public
+
 exports.resetPassword = asyncHandler(async (req, res, next) => {
+
   // Get hashed token
   const resetPasswordToken = crypto
     .createHash('sha256')
@@ -207,11 +217,6 @@ const tokenResponse = (user,statuscode,res) =>{
     let token = user.getJwtToken()
     // console.log(token)
 
-
-
-    console.log(token,typeof(token))
-
-    
   const options = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
