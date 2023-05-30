@@ -45,7 +45,12 @@
 
 // const nanoId = require('nano-id')
 
-// // console.log(nanoId(13))
+// const jeje = nanoId("sdfgh")
+
+// console.log(typeof(jeje))
+
+
+// console.log(nanoId(12))
 // // console.log(nanoId.verify('it4wVGtjvm'))
 
 // console.log(nanoId.verify('O0XPrbPTXG13o'))
@@ -56,3 +61,14 @@
 // if(!x){
 //     console.log('na here')
 // }else(console.log('ok'))
+
+
+// let x = 2
+
+// while(x<11){
+//     x = x+2
+//     console.log(x)
+// }
+
+// let y = x + 20
+// console.log(y)

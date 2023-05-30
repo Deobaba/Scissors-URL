@@ -12,6 +12,9 @@ const linkSchema = new mongoose.Schema({
     QRCODE:{
 
     },
+    Analytics:{
+        type: Number,
+    },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
