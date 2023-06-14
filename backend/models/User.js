@@ -69,4 +69,6 @@ UserSchema.methods.getJwtToken =  function(){
   });
 }
 
+
+
 module.exports = mongoose.model('User', UserSchema);

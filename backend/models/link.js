@@ -1,5 +1,5 @@
 const mongoose = require('mongoose') 
-const nanoId = require('nano-id')
+
 
 const linkSchema = new mongoose.Schema({
     link : {
@@ -8,6 +8,7 @@ const linkSchema = new mongoose.Schema({
     },
     modifiedLink :{
         type: String
+
     },
     QRCODE:{
 
@@ -23,11 +24,11 @@ const linkSchema = new mongoose.Schema({
 })
 
 
-linkSchema.pre('save',async function(next){
+// linkSchema.pre('save',async function(next){
     
 
-    next()
-})
+//     next()
+// })
 
 
 module.exports = mongoose.model('links', linkSchema)

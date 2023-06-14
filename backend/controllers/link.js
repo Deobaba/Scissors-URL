@@ -2,7 +2,9 @@ const links = require('../models/link')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
 const User = require('../models/User')
-const nanoId = require('nano-id')
+const smartTruncate = require('smart-truncate');
+
+
 
 
 exports.getLinks = asyncHandler(async(req,res,next)=>{
@@ -32,22 +34,24 @@ exports.createLink = asyncHandler(async(req,res,next)=>{
         req.body.modifiedLink = req.body.desiredLink
 
         const newlink = await links.find({modifiedLink:req.body.modifiedLink})
-        console.log('it got here',newlink)
+        console.log('it got here',newlink,newlink.length)
 
-        if(newlink.length >= 1){
-            return new ErrorResponse("this link exist already",401)
+        if(newlink.length > 0){
+            return next(new ErrorResponse("this link exist already",401))
         }
     }
-    else{req.body.modifiedLink = nanoId(req.body.link)}
-    // else if (!req.body.desiredLink){
-    //     req.body.modifiedLink = nanoId(req.body.link)
-    //     const newlink = await links.find({modifiedLink:req.body.modifiedLink})
+    // else{req.body.modifiedLink = nanoId(req.body.link)}
+    else if (!req.body.desiredLink){
 
-    //     while(newlink.length >= 1){
-    //     req.body.modifiedLink = nanoId(req.body.link)
-    //     const newlink = await links.find({modifiedLink:req.body.modifiedLink})
-    //     }
-    // }
+        let lengthy = 6
+        req.body.modifiedLink = smartTruncate(req.body.link,length, {mark:''})
+        const newlink = await links.find({modifiedLink:req.body.modifiedLink})
+
+        // while(newlink.length >= 1){
+        // req.body.modifiedLink = nanoId(req.body.link)
+        // const newlink = await links.find({modifiedLink:req.body.modifiedLink})
+        // }
+    }
     
     // const user = await User.findById(req.user.id)
     const link = await links.create(req.body)

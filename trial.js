@@ -72,3 +72,46 @@
 
 // let y = x + 20
 // console.log(y)
+
+// const nanoid = require('nanoid')
+
+// const deobaba = nanoid(23)
+// console.log(deobaba)
+
+const smartTruncate = require('smart-truncate');
+let deo = 'xxn'
+
+// let database = [ 'sdd', 'www', 'qqwysv', '22222v',"xxnxja" ]
+
+let length = 6
+
+let test = smartTruncate(deo,length, {mark:''})
+
+//  database.push(test)
+ 
+// const test1 = database.find(x => x == test)
+
+// while(test1 !== undefined ){
+//     length++
+//     console.log('it got here')
+// }
+
+// // if (test1 === undefined ){
+// //     console.log('it got here')
+// //     length++
+// // }
+// // else if (test1 !== undefined){
+// //     console.log('na here e reach')
+// // }
+
+
+
+// console.log(typeof(test1))
+
+console.log(test)
+
+let x = 2 
+
+do {x = x + 2;
+    console.log(x)
+} while ( x < 10)
