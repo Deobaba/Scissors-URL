@@ -78,14 +78,14 @@
 // const deobaba = nanoid(23)
 // console.log(deobaba)
 
-const smartTruncate = require('smart-truncate');
-let deo = 'xxn'
+// const smartTruncate = require('smart-truncate');
+// let deo = 'xxn'
 
 // let database = [ 'sdd', 'www', 'qqwysv', '22222v',"xxnxja" ]
 
-let length = 6
+// let length = 6
 
-let test = smartTruncate(deo,length, {mark:''})
+// let test = smartTruncate(deo,length, {mark:''})
 
 //  database.push(test)
  
@@ -108,10 +108,19 @@ let test = smartTruncate(deo,length, {mark:''})
 
 // console.log(typeof(test1))
 
-console.log(test)
+// console.log(test)
 
-let x = 2 
+// let x = 0
 
-do {x = x + 2;
-    console.log(x)
-} while ( x < 10)
+// // do {x = x + 2;
+// //     console.log(x)
+// // } while ( x < 1)
+// while(x<10){
+//     x =x + 2
+//     console.log(x)
+// }
+
+
+// const str = 'Hello world!';
+// const shortHash = hashString(str);
+// console.log(shortHash); 

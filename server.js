@@ -1,15 +1,26 @@
 const express = require('express')
-const dotenv  = require('dotenv')
+const dotenv  = require('dotenv') 
+const path = require('path');
 const cookieParser = require('cookie-parser')
+const methodOverride = require('method-override')
 const errorHandler = require('./backend/middleware/error')
 const connectDB = require('./config/db')
 dotenv.config({path:'./config/config.env'})
 
+const app = express()
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'))
 
 const user = require('./backend/routes/user')
 const link = require('./backend/routes/link')
 
-const app = express()
+
+
+
 
 // connect database
 connectDB()
@@ -20,11 +31,16 @@ app.use(express.json())
 // cookie parser
 app.use(cookieParser())
 
+app.use(express.static(path.join(__dirname,'public')))
 
 app.use('/',user)
 app.use('/link',link)
 
 app.use(errorHandler);
+
+
+
+
 
 
 // port

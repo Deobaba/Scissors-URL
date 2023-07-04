@@ -8,12 +8,18 @@ const smartTruncate = require('smart-truncate');
 
 
 exports.getLinks = asyncHandler(async(req,res,next)=>{
+    
     const link = await links.find({})
 
-    res.status(200).json({
-        success: true,
-        data:link
-    })
+    const user = await User.find({})
+
+    // res.status(200).json({
+    //     success: true,
+    //     data:link,
+    //     length:link.length
+    // })
+
+    res.render('frontend/index',{link,user})
 })
 
 exports.getLink = asyncHandler(async(req,res,next)=>{
@@ -44,13 +50,9 @@ exports.createLink = asyncHandler(async(req,res,next)=>{
     else if (!req.body.desiredLink){
 
         let lengthy = 6
-        req.body.modifiedLink = smartTruncate(req.body.link,length, {mark:''})
+        req.body.modifiedLink = smartTruncate(req.body.link,lengthy, {mark:''})
         const newlink = await links.find({modifiedLink:req.body.modifiedLink})
 
-        // while(newlink.length >= 1){
-        // req.body.modifiedLink = nanoId(req.body.link)
-        // const newlink = await links.find({modifiedLink:req.body.modifiedLink})
-        // }
     }
     
     // const user = await User.findById(req.user.id)
@@ -61,11 +63,3 @@ exports.createLink = asyncHandler(async(req,res,next)=>{
         data:link
     })
 })
-
-
-
-
-
-
-
-

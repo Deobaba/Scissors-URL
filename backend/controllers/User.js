@@ -1,20 +1,31 @@
 const User = require('../models/User')
+const links = require('../models/link')
 const asyncHandler = require('../middleware/async')
 const {sendEmail} = require('../utils/sendEmail')
 const crypto = require('crypto');
 const ErrorResponse = require('../utils/errorResponse');
+const redis = require('redis')
+
+const REDIS_PORT = process.env.REDIS_PORT
+
+const client = redis.createClient(REDIS_PORT)
 
 
 // @desc      Register user
 // @route     POST /register
 // @access    Public
 exports.register = asyncHandler(async(req,res,next)=>{
+
     const { name, email, password } = req.body;
     const user = await User.create({
         name,
         email,
         password
       });
+
+      console.log('user',user)
+
+      res.redirect('/me')
 
       tokenResponse(user,200,res)
 
@@ -44,6 +55,11 @@ exports.login = asyncHandler(async(req,res,next)=>{
       return next(new ErrorResponse('Invalid credentials', 401));
     }
 
+    
+
+    
+    res.redirect('/me')
+    // console.log('na here again oo')
     tokenResponse(user,200,res)
 })
 
@@ -71,11 +87,18 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
 exports.getMe = asyncHandler(async (req,res,next)=>{
   const user = await User.findById(req.user.id)
+  const link = await links.find({user:req.user.id})
 
-  res.status(200).json({
-    sucess:true,
-    data:user
-  })
+console.log(user,link)
+
+  res.render('frontend/dashboard',{user,link})
+
+  // res.status(200).json({
+  //   sucess:true,
+  //   data:user
+  // })
+
+  // client.SETEX(req.user.id,30000,user)
 
 })
 
@@ -210,6 +233,13 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   
 });
 
+exports.loginPage =asyncHandler(async (req, res, next) => {
+  res.render('frontend/signin')
+})
+
+exports.createPage =asyncHandler(async (req, res, next) => {
+  res.render('frontend/create')
+})
 
 
 const tokenResponse = (user,statuscode,res) =>{
