@@ -23,11 +23,22 @@ exports.register = asyncHandler(async(req,res,next)=>{
         password
       });
 
-      console.log('user',user)
+      // console.log('user',user)
+    let token = user.getJwtToken()
 
-      res.redirect('/me')
+    const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
 
-      tokenResponse(user,200,res)
+  res.cookie('token', token, options)
+  
+  res.redirect('/me')
+
+
+      
 
 })
 
@@ -55,12 +66,23 @@ exports.login = asyncHandler(async(req,res,next)=>{
       return next(new ErrorResponse('Invalid credentials', 401));
     }
 
-    
+    let token = user.getJwtToken()
+    // console.log(token)
 
-    
-    res.redirect('/me')
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+
+  res.cookie('token', token, options)
+
+  res.redirect('/me')
+
     // console.log('na here again oo')
-    tokenResponse(user,200,res)
+   
+    
 })
 
 
@@ -242,7 +264,7 @@ exports.createPage =asyncHandler(async (req, res, next) => {
 })
 
 
-const tokenResponse = (user,statuscode,res) =>{
+const tokenResponse = (user,res,page) =>{
 
     let token = user.getJwtToken()
     // console.log(token)
@@ -254,11 +276,13 @@ const tokenResponse = (user,statuscode,res) =>{
     httpOnly: true
   };
 
-  res
-    .status(statuscode)
-    .cookie('token', token, options)
-    .json({
-      success: true,
-      token
-    });
+  // res
+  //   .status(statuscode)
+  //   .cookie('token', token, options)
+  //   .json({
+  //     success: true,
+  //     token
+  //   });
+
+  res.cookie('token', token, options).render(page)
 }

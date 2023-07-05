@@ -651,7 +651,7 @@ input[type="radio"] {
 #chart {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
 }
 .dashh11 {
@@ -1144,4 +1144,8 @@ input[type="radio"] {
   footer .coll {
     width: 100%;
   }
+}
+
+.count-edit{
+  flex-wrap: wrap;
 }
