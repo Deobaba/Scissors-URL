@@ -63,3 +63,15 @@ exports.createLink = asyncHandler(async(req,res,next)=>{
         data:link
     })
 })
+
+exports.editLink = asyncHandler(async(req,res,next) => {
+    const fieldstoUpdate = {modifiedLink:req.body.modifiedLink}
+    const link = await links.findByIdAndUpdate(req.params.id,fieldstoUpdate)
+    if(!link) {return  next(new ErrorResponse("link does not exist",401)) }
+
+    res.status(200).json({
+        success:true,
+        data:link
+    })
+})
+

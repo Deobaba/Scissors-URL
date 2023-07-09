@@ -1,5 +1,5 @@
 
-const {register,login,logout,getMe} = require('../controllers/User')
+const {register,login,logout,getMe,updateDetails} = require('../controllers/User')
 const links = require('../models/link'); 
 const User = require('../models/User')
 const ErrorResponse = require('../utils/errorResponse')
@@ -191,5 +191,57 @@ describe('getMe', () => {
       user: mockUser,
       link: mockLinks,
     });
+  });
+});
+
+
+describe('updateDetails', () => {
+  let req, res, next;
+
+  beforeEach(() => {
+    req = {
+      body: {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+      },
+      user: { id: 'userId123' },
+    };
+    res = {
+      redirect: jest.fn(),
+      // Uncomment the following lines if you want to test the response JSON
+      // status: jest.fn().mockReturnThis(),
+      // json: jest.fn(),
+    };
+    next = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should update user details and redirect to /me', async () => {
+    const mockUser = { _id: 'userId123', name: 'John Doe', email: 'john.doe@example.com' };
+    User.findByIdAndUpdate.mockResolvedValueOnce(mockUser);
+
+    await updateDetails(req, res, next);
+
+    expect(User.findByIdAndUpdate).toHaveBeenCalledWith(
+      'userId123',
+      {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+      },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
+    expect(res.redirect).toHaveBeenCalledWith('/me');
+    // Uncomment the following lines if you want to test the response JSON
+    // expect(res.status).toHaveBeenCalledWith(200);
+    // expect(res.json).toHaveBeenCalledWith({
+    //   success: true,
+    //   data: mockUser,
+    // });
   });
 });

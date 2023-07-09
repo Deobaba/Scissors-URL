@@ -239,7 +239,7 @@
 // // Mocking the links module
 
 
-const {login,logout,getMe,updateDetails} = require('../controllers/User')
+const {login,logout,getMe,updateDetails,updatePassword} = require('../controllers/User')
 const links = require('../models/link'); 
 const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse')
@@ -433,3 +433,83 @@ describe('updateDetails', () => {
     // });
   });
 });
+
+
+// const { updatePassword } = require('./yourUpdatePasswordModule'); // Replace with the path to your updatePassword module
+// const User = require('./User'); // Replace with the path to your User model
+// const { ErrorResponse } = require('./yourErrorResponseModule'); // Replace with the path to your ErrorResponse module
+
+// jest.mock('./User'); // Mocking the User module
+
+describe('updatePassword', () => {
+  let req, res, next;
+
+  beforeEach(() => {
+    req = {
+      body: {
+        currentpassword: 'oldpassword',
+        newpassword: 'newpassword123',
+      },
+      user: { id: 'userId123' },
+    };
+    res = {
+      redirect: jest.fn(),
+    };
+    next = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should update the user password and redirect to /me', async () => {
+    const mockUser = { _id: 'userId123', password: 'oldpassword' };
+    User.findById.mockResolvedValueOnce(mockUser);
+    // mockUser.comparePassword = jest.fn().mockResolvedValue(true);
+    mockUser.save = jest.fn().mockResolvedValueOnce(mockUser);
+    mockUser.getJwtToken = jest.fn().mockReturnValue('mockToken');
+
+    await updatePassword(req, res, next);
+
+    expect(User.findById).toHaveBeenCalledWith('userId123');
+    // expect(mockUser.comparePassword).toHaveBeenCalledWith('oldpassword');
+    expect(mockUser.save).toHaveBeenCalled();
+    expect(mockUser.getJwtToken).toHaveBeenCalled();
+    expect(res.cookie).toHaveBeenCalledWith('token', 'mockToken', {
+      expires: expect.any(Date),
+      httpOnly: true,
+    });
+    expect(res.redirect).toHaveBeenCalledWith('/me');
+  });
+
+  it('should return 401 if current password is incorrect', async () => {
+    const mockUser = { _id: 'userId123', password: 'wrongpassword' };
+    User.findById.mockResolvedValueOnce(mockUser);
+    mockUser.comparePassword = jest.fn().mockResolvedValue(false);
+
+    await updatePassword(req, res, next);
+
+    expect(User.findById).toHaveBeenCalledWith('userId123');
+    expect(mockUser.comparePassword).toHaveBeenCalledWith('oldpassword');
+    expect(next).toHaveBeenCalledWith(new ErrorResponse('Password is incorrect', 401));
+    expect(mockUser.save).not.toHaveBeenCalled();
+    expect(mockUser.getJwtToken).not.toHaveBeenCalled();
+    expect(res.cookie).not.toHaveBeenCalled();
+    expect(res.redirect).not.toHaveBeenCalled();
+  });
+
+  it('should return 401 if new password is not provided', async () => {
+    req.body.newpassword = '';
+
+    await updatePassword(req, res, next);
+
+    expect(User.findById).toHaveBeenCalledWith('userId123');
+    expect(mockUser.comparePassword).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith(new ErrorResponse('Enter your new Password', 401));
+    expect(mockUser.save).not.toHaveBeenCalled();
+    expect(mockUser.getJwtToken).not.toHaveBeenCalled();
+    expect(res.cookie).not.toHaveBeenCalled();
+    expect(res.redirect).not.toHaveBeenCalled();
+  });
+});
+

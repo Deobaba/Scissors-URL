@@ -94,6 +94,7 @@ exports.login = asyncHandler(async(req,res,next)=>{
 // @route     GET /logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
+
     res.cookie('token', 'none', {
       expires: new Date(Date.now() + 10 * 1000),
       httpOnly: true
@@ -117,6 +118,8 @@ exports.getMe = asyncHandler(async (req,res,next)=>{
 // console.log(user,link)
 
   res.render('frontend/dashboard',{user,link})
+
+  // res.render('frontend/newDASH',{user,link})
 
   // client.SETEX(req.user.id,30000,user)
 
@@ -149,7 +152,7 @@ res.redirect('/me')
 // @access    Private
 
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
-  const user = await User.findById(req.user.id).select('+password')
+  const user = await User.findById(req.user.id)
   console.log(user)
   // console.log('it got here')
 
@@ -159,7 +162,7 @@ exports.updatePassword = asyncHandler(async (req,res,next)=>{
     
   }
 
-  console.log(req.body)
+  // console.log(req.body)
   if(!(req.body.newpassword)){
     return next(new ErrorResponse(' Enter your new Password', 401))
   }
@@ -167,7 +170,19 @@ exports.updatePassword = asyncHandler(async (req,res,next)=>{
 
   await user.save()
 
-  tokenResponse(user,200,res)
+  let token = user.getJwtToken()
+  // console.log(token)
+
+const options = {
+  expires: new Date(
+    Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+  ),
+  httpOnly: true
+};
+
+res.cookie('token', token, options)
+
+res.redirect('/me')
 })
 
 
