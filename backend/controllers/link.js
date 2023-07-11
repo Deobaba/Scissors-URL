@@ -7,6 +7,7 @@ const validUrl = require('valid-url')
 const Qrcode = require('qrcode')
 const config = require('config')
 const shortid = require('shortid')
+const {Clicks} = require('../utils/click')
 
 
 
@@ -194,7 +195,7 @@ exports.deleteLink = asyncHandler(async (req,res,next)=>{
     if (!link) {
         return next(new ErrorResponse('Url not found', 404));
     }
-    const clicks = await addClicks(ClicksModel, req, url._id);
+    const clicks = await Clicks(req, Code);
 
     res.redirect(link.modifiedLink);
 });

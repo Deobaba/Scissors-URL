@@ -19,11 +19,27 @@ const linkSchema = new mongoose.Schema({
         type: String,
     },
     Analytics:{
-        type: Number,
+        click: {
+            type: Number,
+            default: 0,
+        },
+        device: {
+            type: [String],
+            default: [],
+        },
+        location: {
+            type: [String],
+            default: [],
+        },
+
     },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
+    },
+    created_at: {
+        type: Date,
+        default: Date.now,
     }
 
 })
