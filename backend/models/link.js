@@ -8,10 +8,15 @@ const linkSchema = new mongoose.Schema({
     },
     modifiedLink :{
         type: String
-
     },
-    QRCODE:{
 
+    linkCode :{
+        type: String,
+    },
+
+
+    QRCODE:{
+        type: String,
     },
     Analytics:{
         type: Number,

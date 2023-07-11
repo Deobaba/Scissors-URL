@@ -78,10 +78,13 @@ exports.login = asyncHandler(async(req,res,next)=>{
     ),
     httpOnly: true
   };
-
+  res.status(200).json({
+    success:true,
+    user
+  })
   res.cookie('token', token, options)
 
-  res.redirect('/me')
+  // res.redirect('/me')
 
     // console.log('na here again oo')
    
