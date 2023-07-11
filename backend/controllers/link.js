@@ -30,7 +30,17 @@ exports.getLinks = asyncHandler(async(req,res,next)=>{
 
 exports.getLink = asyncHandler(async(req,res,next)=>{
 
+
+
     const link = await links.findOne({_id:req.params.id})
+
+    if(link.length > 0){
+        return next(new ErrorResponse("url does not exist",401))
+    }
+
+    if (link.user.toString() !== req.user.id.toString()) {
+        return next(new ErrorResponse('this link does not belong to you, move on', 401));
+    }
     res.status(200).json({
         success:true,
         data:link
@@ -176,3 +186,15 @@ exports.deleteLink = asyncHandler(async (req,res,next)=>{
     });
 
 }) 
+
+
+ exports.OnclickUrl = asyncHandler(async (req, res, next) => { 
+    const { Code } = req.params;
+    const link = await UrlModel.findOne({linkCode : Code });
+    if (!link) {
+        return next(new ErrorResponse('Url not found', 404));
+    }
+    const clicks = await addClicks(ClicksModel, req, url._id);
+
+    res.redirect(link.modifiedLink);
+});
