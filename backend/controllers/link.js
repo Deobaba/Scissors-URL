@@ -151,13 +151,28 @@ exports.editLink = asyncHandler(async(req,res,next) => {
 
 
 exports.deleteLink = asyncHandler(async (req,res,next)=>{
+    const { id } = req.params;
 
-    const link = await links.findById(req.params.id)
-    if(!link) {return  next(new ErrorResponse("link does not exist",401)) }
-    await links.findByIdAndDelete(req.params.id)
+    const link = await links.findById(id);
+    if (!link) {
+        return next(new ErrorResponse('Url does not exist', 400));
+    }
+
+    if (!req.user) { 
+        return next(new ErrorResponse('you\'re not logged in', 401));
+    }
+    //check if user is the owner of the url
+    if (link.user.toString() !== req.user.id.toString()) {
+        return next(new ErrorResponse('You are not authorized to delete this url', 401));
+    }
+
+    //delete url
+    await links.findByIdAndDelete(id);
+
 
     res.status(200).json({
-        success: true
-    })
+        success: true,
+        message: 'Url deleted successfully',
+    });
 
 }) 
