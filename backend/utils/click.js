@@ -1,10 +1,9 @@
-const { ErrorResponse } = require('./errorResponse');
+// const { ErrorResponse } = require('./errorResponse');
 const geoip = require('geoip-lite');
 const useragent = require('useragent');
 const links = require('../models/link')
 const ErrorResponse = require('../utils/errorResponse')
-const asyncHandler = require('../middleware/async')
-const User = require('../models/User')
+// const User = require('../models/User')
 
 
 exports.Clicks = async (req, code) => { 

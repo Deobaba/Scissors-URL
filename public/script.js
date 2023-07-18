@@ -23,3 +23,22 @@ function toggleInputFields(headingId) {
     inputFields.style.display = "none";
   }
 }
+
+
+
+document.querySelector('#submit-btn').addEventListener('click', function(e){
+  e.preventDefault()
+  document.querySelector('.popup').classList.add('act')
+})
+
+document.querySelector('.popup .close-btn').addEventListener('click', function(e){
+  e.preventDefault()
+  document.querySelector('.popup').classList.remove('act')
+})
+
+
+document.querySelector('.Anspopup .Aclose-btn').addEventListener('click', function(e){
+  e.preventDefault()
+  document.querySelector('.Anspopup').classList.remove('active')
+})
+

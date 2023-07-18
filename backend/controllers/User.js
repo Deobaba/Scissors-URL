@@ -34,14 +34,11 @@ exports.register = asyncHandler(async(req,res,next)=>{
     httpOnly: true
   };
 
+
+
+  res.redirect('/me')
   res.cookie('token', token, options)
   
-  res.redirect('/me')
-  
-
-
-      
-
 })
 
 // @desc      Login users
@@ -78,17 +75,15 @@ exports.login = asyncHandler(async(req,res,next)=>{
     ),
     httpOnly: true
   };
-  res.status(200).json({
-    success:true,
-    user
-  })
+  // res.status(200).json({
+  //   success:true,
+  //   user
+  // })
+
+  
   res.cookie('token', token, options)
-
-  // res.redirect('/me')
-
-    // console.log('na here again oo')
-   
-    
+  res.redirect('/me')
+  
 })
 
 
@@ -118,9 +113,9 @@ exports.getMe = asyncHandler(async (req,res,next)=>{
   const user = await User.findById(req.user.id)
   const link = await links.find({user:req.user.id})
 
-// console.log(user,link)
+// console.log(link)
 
-  res.render('frontend/dashboard',{user,link})
+  res.render('frontend/Newdashboard',{user,link})
 
   // res.render('frontend/newDASH',{user,link})
 
@@ -156,7 +151,7 @@ res.redirect('/me')
 
 exports.updatePassword = asyncHandler(async (req,res,next)=>{
   const user = await User.findById(req.user.id)
-  console.log(user)
+  // console.log(user)
   // console.log('it got here')
 
   if(!(user.comparePassword(req.body.currentpassword))){
@@ -272,13 +267,41 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   
 });
 
+
+
 exports.loginPage =asyncHandler(async (req, res, next) => {
   res.render('frontend/signin')
 })
 
+
+
+exports.forgot =asyncHandler(async (req, res, next) => {
+  res.render('frontend/forgotpassword')
+})
+
+
+
+exports.UpdatePage =asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id)
+ console.log(user)
+  res.render('frontend/UpdateDetails',{user})
+})
+
+
+
+
+
+exports.changePasswordPage =asyncHandler(async (req, res, next) => { 
+  res.render('frontend/updatepassword')
+})
+
+
 exports.createPage =asyncHandler(async (req, res, next) => {
   res.render('frontend/create')
 })
+
+
+
 
 
 const tokenResponse = (user,res,page) =>{

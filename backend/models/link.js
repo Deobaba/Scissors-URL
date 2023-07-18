@@ -31,6 +31,10 @@ const linkSchema = new mongoose.Schema({
             type: [String],
             default: [],
         },
+        source: {
+            type: [String],
+            default: [],
+        },
 
     },
     user: {

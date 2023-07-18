@@ -20,6 +20,8 @@ exports.getLinks = asyncHandler(async(req,res,next)=>{
 
     const user = await User.find({})
 
+    // console.log(link[0].id)
+
     // res.status(200).json({
     //     success: true,
     //     data:link,
@@ -31,8 +33,6 @@ exports.getLinks = asyncHandler(async(req,res,next)=>{
 
 exports.getLink = asyncHandler(async(req,res,next)=>{
 
-
-
     const link = await links.findOne({_id:req.params.id})
 
     if(link.length > 0){
@@ -42,11 +42,64 @@ exports.getLink = asyncHandler(async(req,res,next)=>{
     if (link.user.toString() !== req.user.id.toString()) {
         return next(new ErrorResponse('this link does not belong to you, move on', 401));
     }
-    res.status(200).json({
-        success:true,
-        data:link
-    })
+    // res.status(200).json({
+    //     success:true,
+    //     data:link
+    // })
+
+ 
+let sourcelist = link.Analytics.source
+let sourceCounts = {};
+
+for (let i = 0; i < sourcelist.length; i++) {
+  let entry = sourcelist[i];
+  sourceCounts[entry] = sourceCounts[entry] ? sourceCounts[entry] + 1 : 1;
+ }
+
+ let source = {
+    whatsapp:sourceCounts.whatsapp,
+    instagram:sourceCounts.instagram,
+    twitter:sourceCounts.twitter,
+    facebook:sourceCounts.facebook,
+    others:sourceCounts.others
+}
+
+for (let key in source) {
+    if (source[key] === undefined) {
+      source[key] = 0;
+    }
+  }
+
+let devicelist = link.Analytics.device
+let deviceCounts = {};
+
+for (let i = 0; i < devicelist.length; i++) {
+    let entry = devicelist[i];
+    deviceCounts[entry] = deviceCounts[entry] ? deviceCounts[entry] + 1 : 1;
+}
+
+let device = {
+    Andriod : deviceCounts.Andriod,
+    Windows : deviceCounts.Windows,
+    Linux : deviceCounts.Linux,
+    IOS: deviceCounts.IOS,
+    Mac: deviceCounts.Mac,
+    Others: deviceCounts.Others
+}
+
+for (let key in device) {
+    if (device[key] === undefined) {
+      device[key] = 0;
+    }
+  }
+
+let locationList= link.Analytics.location
+
+    res.render('frontend/details',{link,source,device,locationList})
+
 })
+
+
 
 
 exports.createLink = asyncHandler(async(req,res,next)=>{
@@ -102,23 +155,27 @@ exports.createLink = asyncHandler(async(req,res,next)=>{
     // const user = await User.findById(req.user.id)
     const link = await links.create(req.body)
 
-    res.status(200).json({
-        success:true,
-        data:link
-    })
+    // res.status(200).json({
+    //     success:true,
+    //     data:link
+    // })
+
+    res.redirect('/me')
 })
 
 exports.editLink = asyncHandler(async(req,res,next) => {
 
-    const baseUrl = process.env.BASE_URL;
+// console.log('the problem is here ')
 
-    //check for existing url
-    const originalUrl = await links.findOne(req.params.id);
+    const baseUrl = config.get('baseUrl')
+
+   
+    const originalUrl = await links.findById(req.params.id);
     if (!originalUrl) {
         return next(new ErrorResponse('Url does not exist', 400));
     }
 
-    //check if user is the owner of the url
+    
     if (originalUrl.user.toString() !== req.user.id.toString()) {
         return next(new ErrorResponse('You are not authorized to update this url', 401));
     }
@@ -129,12 +186,12 @@ exports.editLink = asyncHandler(async(req,res,next) => {
         req.body.linkCode = req.body.customName
 
         const newlink = await links.find({linkCode:req.body.linkCode})
-        console.log('it got here',newlink,newlink.length)
-
-        if(newlink){
+        
+        if(newlink.length > 0){
             return next(new ErrorResponse("Custom name exist already",401))
         }
-    }else{return next(new ErrorResponse("Custom name exist already",401))}
+    }
+    else{return next(new ErrorResponse("Custom name is required",401))}
 
     req.body.modifiedLink = baseUrl + '/' + req.body.linkCode;
 
@@ -153,15 +210,21 @@ exports.editLink = asyncHandler(async(req,res,next) => {
     const link = await links.findByIdAndUpdate(req.params.id,fieldstoUpdate)
     if(!link) {return  next(new ErrorResponse("link does not exist",401)) }
 
-    res.status(200).json({
-        success:true,
-        data:link
-    })
+    // console.log('wizzzyy')
+
+    // res.status(200).json({
+    //     success:true,
+    //     data:link
+    // })
+
+    res.redirect(`/link/${req.params.id}`)
+
 })
 
 
 
 exports.deleteLink = asyncHandler(async (req,res,next)=>{
+
     const { id } = req.params;
 
     const link = await links.findById(id);
@@ -181,21 +244,64 @@ exports.deleteLink = asyncHandler(async (req,res,next)=>{
     await links.findByIdAndDelete(id);
 
 
-    res.status(200).json({
-        success: true,
-        message: 'Url deleted successfully',
-    });
+    // res.status(200).json({
+    //     success: true,
+    //     message: 'Url deleted successfully',
+    // });
 
+    res.redirect('/me')
 }) 
 
 
  exports.OnclickUrl = asyncHandler(async (req, res, next) => { 
     const { Code } = req.params;
-    const link = await UrlModel.findOne({linkCode : Code });
+    const link = await links.findOne({linkCode : Code });
     if (!link) {
         return next(new ErrorResponse('Url not found', 404));
     }
     const clicks = await Clicks(req, Code);
-
-    res.redirect(link.modifiedLink);
+    console.log('it got here')
+    res.redirect(link.link);
 });
+
+
+exports.createPage =asyncHandler(async (req, res, next) => {
+    res.render('frontend/createLink')
+})
+
+
+
+exports.editPage =asyncHandler(async (req, res, next) => {
+
+    const link = await links.findOne({_id:req.params.id})
+
+    console.log('it got hereeeeee',link.id)
+
+    if(link.length > 0){
+        return next(new ErrorResponse("url does not exist",401))
+    }
+
+    if (link.user.toString() !== req.user.id.toString()) {
+        return next(new ErrorResponse('this link does not belong to you, move on', 401));
+    }
+    
+    res.render('frontend/editlink',{link})
+})
+
+
+exports.deletePage =asyncHandler(async (req, res, next) => {
+
+    const link = await links.findOne({_id:req.params.id})
+
+    console.log('it got hereeeeee',link.id)
+
+    if(link.length > 0){
+        return next(new ErrorResponse("url does not exist",401))
+    }
+
+    if (link.user.toString() !== req.user.id.toString()) {
+        return next(new ErrorResponse('this link does not belong to you, move on', 401));
+    }
+    
+    res.render('frontend/deletelink',{link})
+})
