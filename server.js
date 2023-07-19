@@ -61,7 +61,7 @@ app.use(methodOverride('_method'))
 app.use('/',user)
 app.use('/',link)
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 
 
