@@ -28,7 +28,7 @@ exports.getLinks = asyncHandler(async(req,res,next)=>{
     //     length:link.length
     // })
 
-    res.render('frontend/index',{link,user})
+    res.render('index',{link,user})
 })
 
 exports.getLink = asyncHandler(async(req,res,next)=>{
@@ -95,7 +95,7 @@ for (let key in device) {
 
 let locationList= link.Analytics.location
 
-    res.render('frontend/details',{link,source,device,locationList})
+    res.render('details',{link,source,device,locationList})
 
 })
 
@@ -266,7 +266,7 @@ exports.deleteLink = asyncHandler(async (req,res,next)=>{
 
 
 exports.createPage =asyncHandler(async (req, res, next) => {
-    res.render('frontend/createLink')
+    res.render('createLink')
 })
 
 
@@ -285,7 +285,7 @@ exports.editPage =asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('this link does not belong to you, move on', 401));
     }
     
-    res.render('frontend/editlink',{link})
+    res.render('editlink',{link})
 })
 
 
@@ -303,5 +303,5 @@ exports.deletePage =asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('this link does not belong to you, move on', 401));
     }
     
-    res.render('frontend/deletelink',{link})
+    res.render('deletelink',{link})
 })

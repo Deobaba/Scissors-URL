@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/details.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+     
+ <!-- <form> -->
+    <div class="popup">  
+        <div class="close-btn"><a href="/me">&times;</a></div>
+         
+            <div class="row-con">
+
+                <div class=" row1">
+                    <div class="link-div ">shortened-link:
+                        <div class="link">
+                            <p><%= link.modifiedLink %></p>
+                            <i class="fa fa-copy"  ></i>
+                        </div>
+                        <p><%= link.Original %></p>
+                        <p>Clicks :<%= link.Analytics.click %></p>
+                    </div>
+                    <div>
+                       <a href="/editpage/<%=link.id%>"> <i class="far fa-edit"  ></i></a>
+                        
+                       <a href="/deletepage/<%=link.id%>"> <i class="far fa-trash-alt"  ></i></a>
+                    </div>
+                </div>
+            
+
+                <div class=" row2"><img src="<%= link.QRCODE %>" alt="QRCODE"></div>  
+            </div>
+
+        
+            <div class="container">
+                
+                <span><h2>Analytics</h2></span>
+                <div class="row3">
+                    <div class="con-div">
+                      <i class="fas fa-mobile-alt"></i> <span><b class="text">Device</b></span>
+                      <div class="mobile">
+                         <ul>
+                            <li><span>Others : <%= device.Others%></span></li>
+
+                            <li><span>IOS : <%= device.IOS%></span></li>
+
+                            <li><span>Andriod : <%= device.Andriod%></span></li>
+
+                            <li><span>Windows : <%= device.Windows %></span></li>
+
+                            <li><span>Mac : <%= device.Mac%></span></li>
+
+                            <li><span>Linux : <%= device.Linux %></span></li>
+
+                            
+                          
+                         </ul>
+                      </div>
+                    </div>
+                    <div class="con-div">
+                        <i class="fas fa-mobile-alt"></i> <span><b class="text">Source</b></span>
+                        <div class="mobile">
+                           <ul>
+                            <li><span>Others : <%= source.others %></span></li>
+
+                            <li><span>whatsapp : <%= source.whatsapp %></span></li>
+
+                            <li><span>twitter : <%= source.twitter %></span></li>
+
+                            <li><span>instagram : <%= source.instagram %></span></li>
+
+                            <li><span>facebook : <%= source.facebook %></span></li>
+
+                           </ul>
+                        </div>
+                      </div>
+                    <div class="con-div">
+                        <i class="fas fa-map-marker-alt"></i> <span><b class="text">Location</b></span>
+                        <div class="mobile">
+                            <ul>
+                                <% for( let i = 0; i < locationList.length; i++ ) { %>
+                                <li><span><%= locationList[i] %>.</span></li> 
+                                <% } %>
+                                
+                             </ul>
+                    </div>
+                </div>  
+            </div>
+                     
+    </div>
+    <script type="text/javascript" src="/trial.js"></script>
+    
+</body>
+</html>
+
+
+<!-- <div class="popup">  
+    <div class="close-btn">&times;</div>
+    <div class="form">
+        <h3>MAKE YOUR GUESS</h3>
+        <div class="form-element">
+            <label for="question">Question</label>
+            <input type="text" name="question" id="question" placeholder="Enter your Question" required>              
+        </div>
+        <div class="form-element">
+            <label for="answer" >Answer</label>
+            <input type="text" name="answer" id="answer" placeholder="Enter the answer" required>  
+            <!-- <textarea  id="answer" placeholder="Enter your answer"></textarea> -->
+        <!-- </div> -->
+        <!-- <div class="form-element"> -->
+            <!-- <button id="submit-btn">Submit</button> -->
+        <!-- </div>
+
+    </div>              
+</div> --> 
+
+
+

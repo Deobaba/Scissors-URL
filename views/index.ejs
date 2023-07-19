@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="/images/links-logo-1.jpg" />
+    <script
+      src="https://kit.fontawesome.com/a68566b9c8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>LINKS</title>
+  </head>
+  <body>
+    <section id="header">
+      <a href="/link">
+        <h3 class="logo">LINKS</h3>
+      </a>
+      <div>
+        <ul id="navbar">
+          <li><a class="active" href="/link">Home</a></li>
+          <li><a href="/me">Dashboard</a></li>
+          <li><a href="/link">Contact</a></li>
+          <li>
+            <a href="/me"> <i class="fa-regular fa-user"></i></a>
+          </li>
+          <div class="sig">
+            <a href="/create"><h4>sign up</h4></a>
+            <a  href="/loginpage"><h4>sign in</h4></a>
+          </div>
+          <i id="close" class="fa-solid fa-xmark"></i>
+        </ul>
+      </div>
+      <div id="mobile">
+        <a href="/me"> <i class="fa-regular fa-user"></i></a>
+        <i id="bar" class="fa-solid fa-bars"></i>
+      </div>
+    </section>
+    <section id="first" class="">
+      <div class="new">
+        <h2>Shorten URLs, get custom URL and generate QR code</h2>
+        <a href="/loginpage"><button class="btn1" >Get started for free</button></a>
+        <button>Get a quote</button>
+      </div>
+      <div>
+        <img class="first-img" src="images/logo.jpg" alt="" />
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="numbers">
+        <h5><%= link.length %></h5>
+        <h5>Links</h5>
+      </div>
+      <div class="numbers">
+        <h5>540+</h5>
+        <h5>Project Completed</h5>
+      </div>
+      <div class="numbers">
+        <h5><%= user.length %></h5>
+        <h5>Dedicated Members</h5>
+      </div>
+      <div class="numbers">
+        <h5>25+</h5>
+        <h5>Awards Wons</h5>
+      </div>
+    </section>
+
+    <section id="create-links" class="section-p1">
+      <p class="gett">Get Started</p>
+      <h1>What would you like to create?</h1>
+
+      <div class="input-container">
+        <div class="heading" id="heading1">
+          <h2 onclick="toggleInputFields('heading1')">Shorten URL</h2>
+          <div class="input-fields">
+            <label for="pasteUrl">Paste long URL</label>
+            <input type="text" id="pasteUrl" name="pasteUrl" />
+
+            <label for="domain">Domain</label>
+            <input type="text" id="domain" name="domain" />
+          </div>
+        </div>
+
+        <div class="heading" id="heading2">
+         <h2 onclick="toggleInputFields('heading2')">Generate URL</h2>
+          <div class="input-fields">
+            <label for="qrDestination">Enter your QR Code Destination</label>
+            <input type="text" id="qrDestination" name="qrDestination" />
+          </div>
+        </div>
+
+        <div class="heading" id="heading3">
+          <h2 onclick="toggleInputFields('heading3')">QR Code</h2>
+          <div class="input-fields">
+            <label for="qrCode">QR Code Generated</label>
+            <input class="QR" type="text" id="qrCode" name="qrCode" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="details" class="section-p1">
+      <div class="story">
+        <h2>What others are saying</h2>
+        <p>
+          Here are some success stories from our satisfied users in the
+          community who have benefited <br />
+          from this platform. You can be part of them today if you take the
+          step.
+        </p>
+      </div>
+      <div class="people">
+        <div class="pp">
+          <p class="para">
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad hic
+            expedita asperiores blanditiis odio eos atque fugit placeat
+            doloribus, iure rerum rem, iusto eius laudantium exercitationem
+            velit optio corporis iste"
+          </p>
+          <div class="people-contact">
+            <img src="images/passport3.jpg" alt="" />
+            <p class="gettt">
+              <span>John Doe</span>President <br />
+
+              <a href="tel: +2348051641240 ">+234 (805) 164-1240</a>
+
+              <br /><a href="mailto: cristobaldaniel022@gmail.com"
+                >contact@example.com</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="pp">
+          <p>
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad hic
+            expedita asperiores blanditiis odio eos atque fugit placeat
+            doloribus, iure rerum rem, iusto eius laudantium exercitationem
+            velit optio corporis iste"
+          </p>
+          <div class="people-contact">
+            <img src="images/passport1.jpg" alt="" />
+            <p>
+              <span>Alica Mande</span>Vise-President <br />
+              <a href="tel: +2348179146887">+234 (817) 914-6887</a> <br /><a
+                href="mailto: contact@example.com"
+                >contact@example.com</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="pp">
+          <p>
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad hic
+            expedita asperiores blanditiis odio eos atque fugit placeat
+            doloribus, iure rerum rem, iusto eius laudantium exercitationem
+            velit optio corporis iste"
+          </p>
+          <div class="people-contact">
+            <img src="images/passport4.jpg" alt="" />
+            <p>
+              <span>Alica Mande</span>Senior Marketing Manager <br />
+              <a href="tel: +2349011330660">+234 (901) 133-0660</a> <br /><a
+                href="mailto: contact@example.com"
+                >contact@example.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="newsletter">
+      <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>
+          Get e-mail update about our latest shops and
+          <span>special offers.</span>
+        </p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your e-mail address" />
+        <button class="normal">Sign Up</button>
+      </div>
+    </section>
+    <footer class="section-p1">
+      <div class="coll">
+        <h3 class="log">LINKS</h3>
+        <h4>Contacts</h4>
+        <p>
+          <strong>Telephone:</strong>
+          <span>
+            <a href="tel: +2348179146887">+234 (802) 055-0011</a>
+          </span>
+        </p>
+        <p>
+          <strong>Head Office Address:</strong> 14, Herbert Macaulay Way, Yaba,
+          Lagos State.
+        </p>
+        <p>
+          <strong>Email Address: </strong
+          ><a href="mailto: links@official.com">links@official.com</a>
+        </p>
+
+        <div class="follow">
+          <h4>Follow Us</h4>
+          <div class="social">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-pinterest"></i>
+            <i class="fa-brands fa-youtube"></i>
+          </div>
+        </div>
+      </div>
+      <div class="coll">
+        <h4>Be Links</h4>
+        <a href="#">About Links</a>
+        <a href="#">Company</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Pricing</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="coll">
+        <h4>My Account</h4>
+        <a href="#">About Us</a>
+        <a href="#">Sign In</a>
+        <a href="#">View History</a>
+        <a href="#">Download from App store</a>
+        <a href="#">Download from Play store</a>
+        <a href="#">Help</a>
+      </div>
+      <div class="coll">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="mediaa">
+          <img class="media" src="images/32.png" alt="" />
+          <img class="media" src="images/31.png" alt="" />
+        </div>
+        <p>Secure Payment Giveaways</p>
+        <img class="payment" src="/images/33.png" alt="" />
+      </div>
+      <div class="copy">
+        <p>Copyright @ 2023,Links Inc.</p>
+      </div>
+      <div class="copy">
+        <p>All rights reserved</p>
+      </div>
+    </footer>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

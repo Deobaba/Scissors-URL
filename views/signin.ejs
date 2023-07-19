@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="icon" href="images/links-logo-1.jpg" />
+    <script
+      src="https://kit.fontawesome.com/a68566b9c8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>LINKS/Sign-in</title>
+  </head>
+  <body>
+    <div id="link-signin" class="section-p">
+      <a href="/link"><h3>LINKS</h3></a>
+    </div>
+    <div class="logon1">
+      <div class="section-p1">
+        <h1 class="login3">Sign In</h1>
+        <p class="already">
+          Don't have an account?
+          <a href="/create"><span>Sign up</span></a>
+        </p>
+        <div class="google">
+          <i class="fa-brands fa-google"></i>
+          <span><h5>Sign up with Google</h5></span>
+        </div>
+        <div class="line">
+          <p>Or</p>
+        </div>
+      </div>
+      <form action="/login" method="POST" >
+        <label class="login1" for="email">Email</label>
+        <input class="login2" type="email" id="email" name="email" required />
+
+        <label class="login1" for="password">Password</label>
+        <input
+          class="login2"
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+        <p class="already"> 
+          <a href="/forgotpage"><span>forgot password?</span></a>
+        </p>
+
+        <input class="login2" type="submit" value="Sign In" />
+      </form>
+    </div>
+  </body>
+</html>

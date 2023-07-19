@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="icon" href="images/links-logo-1.jpg" />
+    <script
+      src="https://kit.fontawesome.com/a68566b9c8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>LINKS/Creat Account</title>
+  </head>
+  <body>
+    <div id="link-signin" class="section-p">
+      <a href="/link"><h3>LINKS</h3></a>
+    </div>
+    <div class="logon">
+      <div class="section-p1">
+        <h1 class="login3">Create an account</h1>
+        <p class="already">
+          Already have an account?
+          <a href="/loginpage"><span>Sign in</span></a>
+        </p>
+        <div class="google">
+          <i class="fa-brands fa-google"></i>
+          <span><h5>Sign up with Google</h5></span>
+        </div>
+        <div class="line">
+          <p>Or</p>
+        </div>
+      </div>
+      <form action="/register" method="POST">
+        <label class="login1" for="name">Name</label>
+        <input class="login2" type="text" id="name" name="name" required />
+
+        <label class="login1" for="email">Email</label>
+        <input class="login2" type="email" id="email" name="email" required />
+
+        <label class="login1" for="password">Password</label>
+        <input
+          class="login2"
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+
+        <input class="login2" type="submit" value="Create Account" />
+      </form>
+    </div>
+  </body>
+</html>

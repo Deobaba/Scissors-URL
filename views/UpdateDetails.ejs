@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="icon" href="images/links-logo-1.jpg" />
+    <script
+      src="https://kit.fontawesome.com/a68566b9c8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>LINKS/Sign-in</title>
+  </head>
+  <body>
+    <div id="link-signin" class="section-p">
+      <a href="/link"><h3>LINKS</h3></a>
+    </div>
+    <div class="logon1">
+      <div class="section-p1">
+        <h1 class="login3">Update Details</h1>
+      </div>
+      <form action="/updatedetails?_method=PUT" method="POST" >
+        <label class="login1" for="name">Name</label>
+        <input class="login2" type="text" id="name" name="name" value="<%= user.name%>" required />
+
+        <label class="login1" for="email">Email</label>
+        <input class="login2" type="email" id="email" name="email" value="<%= user.email %>" required />
+
+        <input class="login2" type="submit" value="Update Details" />
+      </form>
+    </div>
+  </body>
+</html>

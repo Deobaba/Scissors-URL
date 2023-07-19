@@ -115,9 +115,9 @@ exports.getMe = asyncHandler(async (req,res,next)=>{
 
 // console.log(link)
 
-  res.render('frontend/Newdashboard',{user,link})
+  res.render('Newdashboard',{user,link})
 
-  // res.render('frontend/newDASH',{user,link})
+  // res.render('newDASH',{user,link})
 
   // client.SETEX(req.user.id,30000,user)
 
@@ -270,13 +270,13 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
 
 exports.loginPage =asyncHandler(async (req, res, next) => {
-  res.render('frontend/signin')
+  res.render('signin')
 })
 
 
 
 exports.forgot =asyncHandler(async (req, res, next) => {
-  res.render('frontend/forgotpassword')
+  res.render('forgotpassword')
 })
 
 
@@ -284,7 +284,7 @@ exports.forgot =asyncHandler(async (req, res, next) => {
 exports.UpdatePage =asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id)
  console.log(user)
-  res.render('frontend/UpdateDetails',{user})
+  res.render('UpdateDetails',{user})
 })
 
 
@@ -292,12 +292,12 @@ exports.UpdatePage =asyncHandler(async (req, res, next) => {
 
 
 exports.changePasswordPage =asyncHandler(async (req, res, next) => { 
-  res.render('frontend/updatepassword')
+  res.render('updatepassword')
 })
 
 
 exports.createPage =asyncHandler(async (req, res, next) => {
-  res.render('frontend/create')
+  res.render('create')
 })
 
 

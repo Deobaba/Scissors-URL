@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="images/links-logo-1.jpg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script
+      src="https://kit.fontawesome.com/a68566b9c8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>LINKS/Dashbord</title>
+  </head>
+  <body>
+    <section id="header">
+      <a href="/link">
+        <h3 class="logo">LINKS</h3>
+      </a>
+      <div>
+        <ul id="navbar">
+          <li><a href="/link">Home</a></li>
+          <li><a class="active" href="/me">Dashboard</a></li>
+          <li><a href="/link">Contact</a></li>
+         <li><a href="/changePassword">Change Password</a></li> 
+          <li><a href="/logout">Log Out</a></li>
+          <li>
+            <a href="dashboard.html"> <i class="fa-regular fa-user"></i></a>
+          </li>
+          <div class="sig">
+            <!-- <a href="creat.html"><h4>sign up</h4></a>
+            <a c href="signin.html"><h4>sign in</h4></a> -->
+          </div>
+          <i id="close" class="fa-solid fa-xmark"></i>
+        </ul>
+      </div>
+      <div id="mobile">
+        <a href="dashboard.html"> <i class="fa-regular fa-user"></i></a>
+        <i id="bar" class="fa-solid fa-bars"></i>
+      </div>
+    </section>
+    <section id="dashh" class="section-p1">
+      <div class="dashh">
+        <div class="deo"><h4><%= user.name %></h4></div>
+        <div class="deo"><h4><%= user.email %></h4></div>
+        <div class="deo"><h4>Links:<%= link.length %></h4></div>
+        <div class="clickk">
+          <div class="input-cont">
+            <input type="radio" id="myCheckbox" name="q3" />
+            <label for="q33">Date Created</label>
+          </div>
+          <div class="input-cont">
+            <input type="radio" id="myCheckbox" name="q3" />
+            <label for="q33">Top Peforming</label>
+          </div>
+        </div>
+        <button >filter</button>
+        <a href="/createlink"><button>New</button></a>
+        <a href="/Updatepage"><button>Update Details</button></a>
+      </div>
+      
+    </section>
+    <section id="chart" class="section-p1">
+      <div class="dassh2">
+        <div class="dashh11"><h4>Show chart</h4></div>
+        <div class="dassh13">
+        <% for(let lin of link) { %>
+          <div class="dassh-cont count-edit">
+            <p> shortened:<%= lin.modifiedLink %></p>
+           <a href="/link/<%= lin.id%>"> <button id="submit-btn">View</button></a> 
+          </div>
+       <% } %>    
+        </div>
+      </div>
+    </section>
+    <section id="newsletter">
+      <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>
+          Get e-mail update about our latest shops and
+          <span>special offers.</span>
+        </p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your e-mail address" />
+        <button class="normal">Sign Up</button>
+      </div>
+    </section>
+    <footer class="section-p1">
+      <div class="coll">
+        <h3 class="log">LINKS</h3>
+        <h4>Contacts</h4>
+        <p>
+          <strong>Telephone:</strong>
+          <span>
+            <a href="tel: +2348179146887">+234 (802) 054-2618</a>
+            <a href="tel: +2348051641240 ">+234 (805) 164-1240,</a>
+          </span>
+        </p>
+        <p>
+          <strong>Head Office Address:</strong> 14, Herbert Macaulay Way, Yaba,
+          Lagos State.
+        </p>
+        <p>
+          <strong>Email Address: </strong
+          ><a href="mailto: links@official.com">links@official.com</a>
+        </p>
+
+        <div class="follow">
+          <h4>Follow Us</h4>
+          <div class="social">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-pinterest"></i>
+            <i class="fa-brands fa-youtube"></i>
+          </div>
+        </div>
+      </div>
+      <div class="coll">
+        <h4>Be Links</h4>
+        <a href="#">About Links</a>
+        <a href="#">Company</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Pricing</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="coll">
+        <h4>My Account</h4>
+        <a href="#">About Us</a>
+        <a href="#">Sign In</a>
+        <a href="#">View History</a>
+        <a href="#">Download from App store</a>
+        <a href="#">Download from Play store</a>
+        <a href="#">Help</a>
+      </div>
+      <div class="coll">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="mediaa">
+          <img class="media" src="images/32.png" alt="" />
+          <img class="media" src="images/31.png" alt="" />
+        </div>
+        <p>Secure Payment Giveaways</p>
+        <img class="payment" src="images/33.png" alt="" />
+      </div>
+      <div class="copy">
+        <p>Copyright @ 2023,Links Inc.</p>
+      </div>
+      <div class="copy">
+        <p>All rights reserved</p>
+      </div>
+    </footer> 
+  </body>
+</html>
