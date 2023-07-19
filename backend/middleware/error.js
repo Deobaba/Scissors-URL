@@ -28,11 +28,11 @@ const errorHandler = (err, req, res, next) => {
 
   console.log('if error it would always get here')
 
-  res.status(error.statusCode || 500).json({
-    success: false,
-    error: error.message || 'Server Error'
-  });
-  // res.render('/frontend/error',{error})
+  // res.status(error.statusCode || 500).json({
+  //   success: false,
+  //   error: error.message || 'Server Error'
+  // });
+  res.render('frontend/error',{error})
 };
 
 module.exports = errorHandler;
