@@ -4,7 +4,7 @@ const router = express.Router()
 const{protectRoute} = require('../middleware/userauth')
 
 
-router.get('/link',getLinks)
+router.get('/',getLinks)
 router.get('/createlink',createPage)
 router.get('/editpage/:id',protectRoute,editPage)
 router.get('/deletepage/:id',protectRoute,deletePage)

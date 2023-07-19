@@ -36,8 +36,8 @@ exports.register = asyncHandler(async(req,res,next)=>{
 
 
 
-  res.redirect('/me')
-  res.cookie('token', token, options)
+  
+  res.cookie('token', token, options).redirect('/me')
   
 })
 

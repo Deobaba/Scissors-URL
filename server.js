@@ -54,10 +54,14 @@ app.use(cors());
 app.use(express.static(path.join(__dirname,'public')))
 app.use(methodOverride('_method'))
 
+// app.get('/',(req,res,next)=>{
+//     res.render('index')
+// })
+
 app.use('/',user)
 app.use('/',link)
 
-app.use(errorHandler);
+// app.use(errorHandler);
 
 
 
