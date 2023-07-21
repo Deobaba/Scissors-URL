@@ -68,7 +68,7 @@
         <div class="dassh13">
         <% for(let lin of link) { %>
           <div class="dassh-cont count-edit">
-            <p> shortened:<%= lin.modifiedLink %></p>
+            <p> shortened:  <a href="<%= lin.modifiedLink %>" target="_blank"><%= lin.modifiedLink %> </a></p>
            <a href="/link/<%= lin.id%>"> <button id="submit-btn">View</button></a> 
           </div>
        <% } %>    
